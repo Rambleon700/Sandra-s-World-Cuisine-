@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chinese Takeaway Favorites | SJG Sandra's World Cuisine</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%23C85A32'/><text x='32' y='41' font-family='Playfair Display, serif' font-size='22' font-weight='bold' fill='%23FFF8F0' text-anchor='middle' letter-spacing='1'>SJG</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root { --bg: #FDFBF7; --card-bg: #FFFFFF; --text: #1C1917; --text-muted: #78716C; --accent: #C85A32; --border: #E7E5E4; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; }
+    header { background: var(--card-bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    nav { max-width: 1200px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--text); font-weight: 700; }
+    .brand-badge { background: var(--accent); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-family: 'Playfair Display', serif; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; }
+    .nav-links a:hover { color: var(--accent); }
+    .container { max-width: 1200px; margin: 3rem auto; padding: 0 1.5rem; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 0.5rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+    .card img { width: 100%; height: 200px; object-fit: cover; }
+    .card-body { padding: 1.25rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .card-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .badge-chinese { background: #DC2626; color: white; font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px; display: inline-block; width: fit-content; margin-bottom: 0.5rem; text-transform: uppercase; }
+    .btn-recipe { background: var(--text); color: white; border: none; padding: 0.6rem; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: auto; }
+    .btn-recipe:hover { background: var(--accent); }
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 1rem; }
+    .modal.active { display: flex; }
+    .modal-content { background: white; max-width: 650px; width: 100%; max-height: 85vh; overflow-y: auto; border-radius: 12px; padding: 2rem; position: relative; }
+    .close-btn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="brand" href="./index.html"><span class="brand-badge">SJG</span><span>Sandra's World Cuisine</span></a>
+      <ul class="nav-links">
+        <li><a href="./curries.html">Curries</a></li>
+        <li><a href="./chinese.html" style="color:var(--accent);">Chinese</a></li>
+        <li><a href="./satay.html">Satay</a></li>
+        <li><a href="./chow-mein.html">Chow Mein</a></li>
+        <li><a href="./italian.html">Italian</a></li>
+        <li><a href="./thai.html">Thai</a></li>
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Takeaway Chef's Favorites</h1>
+    <p style="color: var(--text-muted);">Top 10 iconic Chinese takeaway dishes recreated for home wok cooking.</p>
+    <div class="grid" id="chinese-grid"></div>
+  </main>
+
+  <div class="modal" id="recipe-modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">✕</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script>
+    const dishes = [
+      { id: "crispy-chilli-beef", tag: "Takeaway Classic", title: "Crispy Shredded Chilli Beef", desc: "Crispy cornstarch-coated beef strips tossed in a sweet, spicy, and tangy garlic sauce.", img: "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=1000&q=85", ingredients: ["400g rump steak, cut into thin strips", "3 tbsp cornstarch", "1 red pepper, 1 chilli (sliced)", "Sauce: 2 tbsp sweet chilli sauce, 2 tbsp dark soy, 1 tbsp rice vinegar, 1 tbsp sugar"], steps: ["Toss beef strips in cornstarch until well coated.", "Deep fry beef in hot oil until crispy (3-4 mins); drain.", "Stir-fry red peppers and chilli in 1 tbsp oil for 1 min.", "Add sauce mixture, bring to a bubble, then toss in crispy beef to coat immediately."] },
+      { id: "sweet-sour-chicken", tag: "Takeaway Classic", title: "Sweet & Sour Chicken Hong Kong Style", desc: "Bite-sized battered chicken breast with pineapple, peppers, and glossy red sweet and sour glaze.", img: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=1000&q=85", ingredients: ["500g chicken breast, cubed", "1 egg, beaten + 4 tbsp cornstarch", "1/2 cup pineapple chunks", "Sauce: 3 tbsp ketchup, 2 tbsp rice vinegar, 2 tbsp sugar, 1 tbsp soy sauce"], steps: ["Dip chicken in egg then coat thoroughly in cornstarch.", "Fry in hot oil until golden crisp (5 mins).", "Whisk sauce ingredients together with 3 tbsp water.", "Simmer sauce with pineapple and peppers until thick, then fold in crispy chicken."] },
+      { id: "kung-pao", tag: "Sichuan Specialty", title: "Kung Pao Chicken", desc: "Sichuan classic featuring seared chicken, crunchy peanuts, and fiery dried red chillies.", img: "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=1000&q=85", ingredients: ["400g chicken thighs, diced", "1/2 cup roasted peanuts", "8 dried red chillies, whole", "1 tsp Sichuan peppercorns", "Sauce: 2 tbsp soy sauce, 1 tbsp Chinkiang black vinegar, 1 tsp sesame oil"], steps: ["Searing chicken in a hot wok until lightly browned; remove.", "Fragrance dried chillies and Sichuan peppercorns in oil over medium heat.", "Return chicken with sauce ingredients and toss over high heat.", "Stir in peanuts right before serving."] },
+      { id: "char-siu", tag: "Cantonese BBQ", title: "Char Siu Pork", desc: "Sweet and savory Cantonese BBQ pork roasted with honey, five-spice, and hoisin marinade.", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1000&q=85", ingredients: ["600g pork neck or shoulder strips", "2 tbsp hoisin sauce, 2 tbsp honey", "1 tbsp soy sauce, 1 tsp Chinese five-spice", "1 tbsp Shaoxing rice wine"], steps: ["Marinate pork strips in hoisin, five-spice, soy, and wine overnight.", "Roast on a wire rack at 200°C (400°F) for 30 mins, turning halfway.", "Baste generously with honey marinade and broil for 3-5 mins until caramelized."] },
+      { id: "black-bean-beef", tag: "Wok Classic", title: "Beef in Black Bean Sauce", desc: "Tenderized beef slices stir-fried with fragrant fermented black beans and crunchy peppers.", img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=1000&q=85", ingredients: ["400g beef sirloin, sliced", "2 tbsp fermented salted black beans (mashing slightly)", "1 green pepper, 1 onion (chopped)", "Sauce: 1 tbsp dark soy, 1 tbsp Shaoxing wine, 100ml chicken stock, 1 tsp cornstarch"], steps: ["Marinate sliced beef in soy sauce and baking soda for 15 mins to tenderize.", "Flash-fry beef in smoking wok for 90 seconds; set aside.", "Sauté garlic, ginger, black beans, peppers, and onions.", "Pour sauce mix into wok; return beef and stir until gravy thickens."] },
+      { id: "special-fried-rice", tag: "Takeaway Classic", title: "Special Yang Zhou Fried Rice", desc: "Fluffy wok-fried rice packed with char siu pork, prawns, peas, egg, and sesame.", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=1000&q=85", ingredients: ["3 cups day-old cooked jasmine rice", "100g char siu pork, diced", "100g cooked small prawns", "2 eggs, beaten", "1/2 cup frozen peas, 2 spring onions (chopped)", "2 tbsp soy sauce, 1 tsp sesame oil"], steps: ["Scramble eggs in hot wok with oil; break into small curds.", "Add cold cooked rice, pressing out lumps over high wok heat.", "Toss in char siu, prawns, peas, and green onions.", "Drizzle soy sauce and sesame oil around the rim of wok; toss vigorously for 2 mins."] },
+      { id: "salt-pepper-squid", tag: "Chef Favorite", title: "Salt & Pepper Crispy Squid", desc: "Crispy scored squid tossed with toasted Sichuan salt, garlic, and fresh green chillies.", img: "https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=1000&q=85", ingredients: ["400g squid tubes, scored criss-cross", "4 tbsp cornstarch", "1 tsp Sichuan salt & white pepper mix", "3 cloves garlic (minced), 2 red chillies (sliced)"], steps: ["Toss scored squid pieces in cornstarch.", "Flash-fry in hot oil for 60-90 seconds until crisp; drain.", "Sauté garlic and chillies in dry wok for 30 seconds.", "Toss squid into wok, season liberally with salt and pepper spice mix."] },
+      { id: "sesame-chicken-toast", tag: "Dim Sum Favorite", title: "Crispy Sesame Prawn Toast", desc: "Golden fried bread triangles topped with seasoned minced prawn paste and white sesame seeds.", img: "https://images.unsplash.com/photo-1541544741938-0af808871cc0?auto=format&fit=crop&w=1000&q=85", ingredients: ["250g raw prawns, minced", "4 slices white bread, crusts removed", "1 egg white, 1 tsp ginger paste", "1/2 cup white sesame seeds"], steps: ["Mix minced prawns with egg white, ginger, and 1 tsp cornstarch.", "Spread paste evenly across white bread slices.", "Press face-down into sesame seeds, then cut into triangles.", "Deep-fry paste-side down first until golden brown (2-3 mins per side)."] },
+      { id: "mapo-tofu", tag: "Sichuan Specialty", title: "Sichuan Mapo Tofu", desc: "Silken tofu cubes and minced pork simmered in fiery fermented broad bean chili paste (Doubanjiang).", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1000&q=85", ingredients: ["400g silken tofu, cubed", "150g minced pork", "2 tbsp Sichuan Doubanjiang paste", "1 tsp ground Sichuan pepper", "150ml beef stock, 1 tbsp cornstarch slurry"], steps: ["Brown minced pork in oil, then stir in Doubanjiang paste until oil turns red.", "Add stock and gently slide silken tofu cubes into wok.", "Simmer for 5 mins, stir in cornstarch slurry to thicken sauce.", "Garnish with ground Sichuan pepper and chopped scallions."] },
+      { id: "duck-pancakes", tag: "Imperial Favorite", title: "Peking Aromatic Crispy Duck", desc: "Crispy spiced duck served with thin steam pancakes, fresh cucumber, scallions, and sweet hoisin.", img: "https://images.unsplash.com/photo-1514944298341-9ead685e325c?auto=format&fit=crop&w=1000&q=85", ingredients: ["1/2 roasted duck leg/breast", "12 small steamed Mandarin pancakes", "1/2 cucumber (shredded), 4 scallions (shredded)", "1/2 cup Hoisin sauce"], steps: ["Roast duck at 220°C (425°F) for 20 mins until skin is dark and ultra-crispy.", "Shred duck meat and crispy skin using two forks.", "Steam Mandarin pancakes for 2 minutes.", "Assemble: spread hoisin on pancake, top with shredded duck, cucumber, and scallions; roll tightly."] }
+    ];
+
+    document.getElementById('chinese-grid').innerHTML = dishes.map(d => `
+      <div class="card">
+        <img src="${d.img}" alt="${d.title}">
+        <div class="card-body">
+          <span class="badge-chinese">${d.tag}</span>
+          <h3 class="card-title">${d.title}</h3>
+          <p style="color:var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">${d.desc}</p>
+          <button class="btn-recipe" onclick="openRecipe('${d.id}')">View Full Recipe</button>
+        </div>
+      </div>
+    `).join('');
+
+    function openRecipe(id) {
+      const d = dishes.find(item => item.id === id);
+      document.getElementById('modal-body').innerHTML = `
+        <span class="badge-chinese">${d.tag}</span>
+        <h2 style="font-family:'Playfair Display', serif; margin-top:0.25rem;">${d.title}</h2>
+        <img src="${d.img}" style="width:100%; height:220px; object-fit:cover; border-radius:8px; margin:1rem 0;">
+        <h3 style="font-family:'Playfair Display', serif;">Ingredients</h3><ul>${d.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+        <h3 style="font-family:'Playfair Display', serif; margin-top:1rem;">Instructions</h3><ol>${d.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+      `;
+      document.getElementById('recipe-modal').classList.add('active');
+    }
+    function closeModal() { document.getElementById('recipe-modal').classList.remove('active'); }
+  </script>
+</body>
+</html>
