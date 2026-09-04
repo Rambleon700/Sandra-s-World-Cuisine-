@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Italian Classics | SJG Sandra's World Cuisine</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%23C85A32'/><text x='32' y='41' font-family='Playfair Display, serif' font-size='22' font-weight='bold' fill='%23FFF8F0' text-anchor='middle' letter-spacing='1'>SJG</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root { --bg: #FDFBF7; --card-bg: #FFFFFF; --text: #1C1917; --text-muted: #78716C; --accent: #C85A32; --border: #E7E5E4; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; }
+    header { background: var(--card-bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    nav { max-width: 1200px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--text); font-weight: 700; }
+    .brand-badge { background: var(--accent); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-family: 'Playfair Display', serif; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; }
+    .nav-links a:hover { color: var(--accent); }
+    .container { max-width: 1200px; margin: 3rem auto; padding: 0 1.5rem; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 0.5rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+    .card img { width: 100%; height: 200px; object-fit: cover; }
+    .card-body { padding: 1.25rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .card-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .badge-region { background: #15803D; color: white; font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px; display: inline-block; width: fit-content; margin-bottom: 0.5rem; text-transform: uppercase; }
+    .btn-recipe { background: var(--text); color: white; border: none; padding: 0.6rem; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: auto; }
+    .btn-recipe:hover { background: var(--accent); }
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 1rem; }
+    .modal.active { display: flex; }
+    .modal-content { background: white; max-width: 650px; width: 100%; max-height: 85vh; overflow-y: auto; border-radius: 12px; padding: 2rem; position: relative; }
+    .close-btn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="brand" href="./index.html"><span class="brand-badge">SJG</span><span>Sandra's World Cuisine</span></a>
+      <ul class="nav-links">
+        <li><a href="./curries.html">Curries</a></li>
+        <li><a href="./satay.html">Satay</a></li>
+        <li><a href="./chow-mein.html">Chow Mein</a></li>
+        <li><a href="./italian.html" style="color:var(--accent);">Italian</a></li>
+        <li><a href="./thai.html">Thai</a></li>
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Classics All'Italiana</h1>
+    <p style="color: var(--text-muted);">Authentic regional Italian pastas, slow-braised ragùs, and baked classics.</p>
+    <div class="grid" id="italian-grid"></div>
+  </main>
+
+  <div class="modal" id="recipe-modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">✕</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script>
+    const dishes = [
+      { id: "carbonara", tag: "Lazio / Roma", title: "Spaghetti alla Carbonara", desc: "Crispy guanciale, egg yolks, freshly grated Pecorino Romano, and cracked black pepper.", img: "https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=1000&q=85", ingredients: ["350g Spaghetti", "150g Guanciale (or pancetta), diced", "4 egg yolks + 1 whole egg", "80g Pecorino Romano, grated", "Freshly cracked black pepper"], steps: ["Render guanciale in a wide pan until golden and crisp; remove pan from heat.", "Whisk egg yolks, whole egg, Pecorino, and black pepper together in a bowl.", "Boil spaghetti in salted water until al dente; reserve 1/2 cup pasta water.", "Toss pasta in guanciale fat off heat, then quickly stir in egg mixture and pasta water until silky."] },
+      { id: "bolognese", tag: "Emilia-Romagna", title: "Tagliatelle al Ragù Bolognese", desc: "Traditional slow-cooked beef and pork meat sauce braised with wine, soffritto, and milk.", img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281270?auto=format&fit=crop&w=1000&q=85", ingredients: ["400g minced beef, 200g minced pork", "1 onion, 1 carrot, 1 celery stick (finely diced)", "150ml dry white wine", "200ml whole milk", "400g passata", "400g fresh Tagliatelle"], steps: ["Sauté onion, carrot, and celery in olive oil until soft (soffritto).", "Add minced beef and pork; brown thoroughly.", "Pour in wine and reduce completely, then stir in milk and simmer for 10 mins.", "Add passata, cover, and simmer on lowest heat for 2 hours. Serve over fresh tagliatelle."] },
+      { id: "lasagne", tag: "Emilia-Romagna", title: "Classic Lasagne alla Bolognese", desc: "Layered sheets of pasta with rich meat ragù, creamy béchamel, and Parmigiano-Reggiano.", img: "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=1000&q=85", ingredients: ["12 lasagne sheets", "1 batch Ragù Bolognese", "500ml Béchamel sauce (butter, flour, milk, nutmeg)", "150g Parmigiano-Reggiano, grated", "100g Mozzarella"], steps: ["Prepare béchamel sauce by whisking warm milk into butter-flour roux with nutmeg.", "Layer baking dish: béchamel, pasta sheets, ragù, béchamel, and Parmigiano.", "Repeat for 4-5 layers, finishing with béchamel, mozzarella, and Parmigiano on top.", "Bake at 190°C (375°F) for 35-40 minutes until golden and bubbling."] },
+      { id: "risotto", tag: "Lombardia", title: "Risotto alla Milanese", desc: "Creamy saffron-infused Carnaroli rice finished with butter and Parmigiano.", img: "https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=1000&q=85", ingredients: ["320g Carnaroli or Arborio rice", "1 pinch saffron threads (soaked in warm stock)", "1/2 cup dry white wine", "1.2L rich beef stock", "80g butter, 100g Parmigiano-Reggiano"], steps: ["Toast rice in melted butter for 2 mins until translucent.", "Deglaze with white wine and stir until evaporated.", "Ladle in hot stock gradually, stirring constantly until rice absorbs liquid.", "Stir in saffron liquid during last 5 mins. Off heat, beat in cold butter and Parmigiano (mantecatura)."] },
+      { id: "alfredo", tag: "Roma", title: "Fettuccine al Burro e Parmigiano", desc: "The original 3-ingredient Roman Alfredo with emulsified butter and aged Parmigiano.", img: "https://images.unsplash.com/photo-1645112411341-6c4fd023714a?auto=format&fit=crop&w=1000&q=85", ingredients: ["350g fresh Fettuccine", "120g high-quality unsalted butter (softened)", "120g Parmigiano-Reggiano (finely microplaned)", "Pasta boiling water"], steps: ["Cook fresh fettuccine in salted water for 2-3 minutes.", "Transfer butter and grated cheese into a warm serving bowl.", "Add pasta directly from water into bowl with 1/2 cup starchy pasta water.", "Toss rapidly for 1-2 minutes until a thick, glossy cheese emulsion coats every strand."] }
+    ];
+
+    document.getElementById('italian-grid').innerHTML = dishes.map(d => `
+      <div class="card">
+        <img src="${d.img}" alt="${d.title}">
+        <div class="card-body">
+          <span class="badge-region">${d.tag}</span>
+          <h3 class="card-title">${d.title}</h3>
+          <p style="color:var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">${d.desc}</p>
+          <button class="btn-recipe" onclick="openRecipe('${d.id}')">View Full Recipe</button>
+        </div>
+      </div>
+    `).join('');
+
+    function openRecipe(id) {
+      const d = dishes.find(item => item.id === id);
+      document.getElementById('modal-body').innerHTML = `
+        <span class="badge-region">${d.tag}</span>
+        <h2 style="font-family:'Playfair Display', serif; margin-top:0.25rem;">${d.title}</h2>
+        <img src="${d.img}" style="width:100%; height:220px; object-fit:cover; border-radius:8px; margin:1rem 0;">
+        <h3 style="font-family:'Playfair Display', serif;">Ingredients</h3><ul>${d.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+        <h3 style="font-family:'Playfair Display', serif; margin-top:1rem;">Instructions</h3><ol>${d.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+      `;
+      document.getElementById('recipe-modal').classList.add('active');
+    }
+    function closeModal() { document.getElementById('recipe-modal').classList.remove('active'); }
+  </script>
+</body>
+</html>
