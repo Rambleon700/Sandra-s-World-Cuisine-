@@ -1,0 +1,22 @@
+{
+  "name": "Sandra's World Cuisine",
+  "short_name": "SJG Cuisine",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192/DC2626/FFFFFF.png?text=SJG",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://via.placeholder.com/512/DC2626/FFFFFF.png?text=SJG",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FDFBF7",
+  "theme_color": "#DC2626"
+}
