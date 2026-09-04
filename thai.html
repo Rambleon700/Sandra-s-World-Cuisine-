@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thai Table | SJG Sandra's World Cuisine</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%23C85A32'/><text x='32' y='41' font-family='Playfair Display, serif' font-size='22' font-weight='bold' fill='%23FFF8F0' text-anchor='middle' letter-spacing='1'>SJG</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root { --bg: #FDFBF7; --card-bg: #FFFFFF; --text: #1C1917; --text-muted: #78716C; --accent: #C85A32; --border: #E7E5E4; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; }
+    header { background: var(--card-bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    nav { max-width: 1200px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--text); font-weight: 700; }
+    .brand-badge { background: var(--accent); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-family: 'Playfair Display', serif; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; }
+    .nav-links a:hover { color: var(--accent); }
+    .container { max-width: 1200px; margin: 3rem auto; padding: 0 1.5rem; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 0.5rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+    .card img { width: 100%; height: 200px; object-fit: cover; }
+    .card-body { padding: 1.25rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .card-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .badge-thai { background: #0284C7; color: white; font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px; display: inline-block; width: fit-content; margin-bottom: 0.5rem; text-transform: uppercase; }
+    .btn-recipe { background: var(--text); color: white; border: none; padding: 0.6rem; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: auto; }
+    .btn-recipe:hover { background: var(--accent); }
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 1rem; }
+    .modal.active { display: flex; }
+    .modal-content { background: white; max-width: 650px; width: 100%; max-height: 85vh; overflow-y: auto; border-radius: 12px; padding: 2rem; position: relative; }
+    .close-btn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="brand" href="./index.html"><span class="brand-badge">SJG</span><span>Sandra's World Cuisine</span></a>
+      <ul class="nav-links">
+        <li><a href="./curries.html">Curries</a></li>
+        <li><a href="./satay.html">Satay</a></li>
+        <li><a href="./chow-mein.html">Chow Mein</a></li>
+        <li><a href="./italian.html">Italian</a></li>
+        <li><a href="./thai.html" style="color:var(--accent);">Thai</a></li>
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Thai Kitchen Essentials</h1>
+    <p style="color: var(--text-muted);">Balance sweet, sour, salty, and spicy with authentic curries and street food classics.</p>
+    <div class="grid" id="thai-grid"></div>
+  </main>
+
+  <div class="modal" id="recipe-modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">✕</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script>
+    const dishes = [
+      { id: "green-curry", tag: "Central Thailand", title: "Thai Green Chicken Curry (Gaeng Keow Wan)", desc: "Aromatic green chilli paste simmered with coconut milk, chicken, Thai eggplants, and sweet basil.", img: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=1000&q=85", ingredients: ["500g chicken thigh, sliced", "400ml coconut milk", "3 tbsp green curry paste", "100g Thai eggplants or bamboo shoots", "2 tbsp fish sauce", "1 tbsp palm sugar", "Handful of Thai sweet basil"], steps: ["Fry green curry paste in 3 tbsp coconut cream until fragrant oil separates.", "Add chicken slices and toss until lightly seared.", "Pour in remaining coconut milk, fish sauce, and palm sugar. Simmer for 10 mins.", "Add eggplants, cook for 5 mins, and fold in fresh Thai basil off heat."] },
+      { id: "red-curry", tag: "Central Thailand", title: "Thai Red Duck & Pineapple Curry (Gaeng Phet)", desc: "Rich dried red chilli curry with roasted duck, sweet pineapple, and kaffir lime leaves.", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=1000&q=85", ingredients: ["300g roasted duck breast, sliced", "400ml coconut milk", "3 tbsp red curry paste", "1/2 cup fresh pineapple chunks", "5 cherry tomatoes", "4 kaffir lime leaves, torn", "1 tbsp fish sauce"], steps: ["Simmer red curry paste in coconut cream until fragrant and red oil rises.", "Add coconut milk, kaffir lime leaves, fish sauce, and pineapple.", "Simmer for 8 mins, then gently add duck slices and cherry tomatoes.", "Warm through for 3 mins before serving over jasmine rice."] },
+      { id: "yellow-curry", tag: "Southern Thailand", title: "Thai Yellow Chicken & Potato Curry (Gaeng Garee)", desc: "Mild, fragrant curry spiced with turmeric, cumin, and tender potatoes.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=1000&q=85", ingredients: ["500g chicken thighs", "400ml coconut milk", "3 tbsp yellow curry paste", "2 medium potatoes, cubed", "1 onion, wedged", "1 tbsp fish sauce", "1 tbsp tamarind paste"], steps: ["Sauté yellow curry paste in coconut cream until aromatic.", "Add chicken thighs, potato cubes, and onion wedges.", "Pour in coconut milk, tamarind, and fish sauce; cover and simmer for 25 mins until potatoes are tender."] },
+      { id: "pad-thai", tag: "Street Food Classic", title: "Authentic Shrimp Pad Thai", desc: "Stir-fried rice noodles tossed with tamarind sauce, prawns, egg, tofu, and crushed peanuts.", img: "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=1000&q=85", ingredients: ["200g flat rice noodles (soaked)", "12 large prawns, peeled", "2 eggs", "100g firm tofu, cubed", "3 tbsp tamarind paste, 2 tbsp fish sauce, 2 tbsp palm sugar", "Beansprouts, chives, lime, peanuts"], steps: ["Whisk tamarind paste, fish sauce, and palm sugar together for sauce.", "Stir-fry tofu and prawns in hot oil until cooked; push to side of wok.", "Scramble eggs in wok, then add soaked noodles and sauce; toss over high heat.", "Mix in beansprouts and garlic chives. Serve topped with crushed peanuts and lime."] },
+      { id: "tom-yum", tag: "National Classic", title: "Tom Yum Goong (Spicy Shrimp Soup)", desc: "Hot and sour lemongrass soup infused with galangal, lime leaves, and fresh prawns.", img: "https://images.unsplash.com/photo-1548946526-f69e2424cf45?auto=format&fit=crop&w=1000&q=85", ingredients: ["1L chicken stock", "12 prawns", "3 stalks lemongrass, bruised", "4 slices galangal", "5 kaffir lime leaves", "3 tbsp lime juice, 2 tbsp fish sauce", "2 tbsp Thai chili paste (Nam Prik Pao)"], steps: ["Bring stock to boil with lemongrass, galangal, and kaffir lime leaves for 5 mins.", "Stir in Thai chili paste, mushrooms, and prawns; cook for 3 mins until prawns turn pink.", "Remove from heat, then stir in fresh lime juice and fish sauce."] },
+      { id: "massaman", tag: "Southern Thailand", title: "Massaman Beef Curry", desc: "Melt-in-your-mouth beef braised with roasted spices, peanuts, and tamarind.", img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=1000&q=85", ingredients: ["600g beef chuck, cubed", "400ml coconut milk", "3 tbsp Massaman paste", "2 potatoes, cubed", "1/2 cup roasted peanuts", "1 tbsp tamarind, 1 tbsp palm sugar"], steps: ["Fry Massaman paste in top cream of coconut milk until oil breaks.", "Add beef chuck and toss to coat.", "Pour in coconut milk, cover and simmer low for 1 hour.", "Add potatoes, peanuts, tamarind, and sugar; simmer 35 mins until tender."] }
+    ];
+
+    document.getElementById('thai-grid').innerHTML = dishes.map(d => `
+      <div class="card">
+        <img src="${d.img}" alt="${d.title}">
+        <div class="card-body">
+          <span class="badge-thai">${d.tag}</span>
+          <h3 class="card-title">${d.title}</h3>
+          <p style="color:var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">${d.desc}</p>
+          <button class="btn-recipe" onclick="openRecipe('${d.id}')">View Full Recipe</button>
+        </div>
+      </div>
+    `).join('');
+
+    function openRecipe(id) {
+      const d = dishes.find(item => item.id === id);
+      document.getElementById('modal-body').innerHTML = `
+        <span class="badge-thai">${d.tag}</span>
+        <h2 style="font-family:'Playfair Display', serif; margin-top:0.25rem;">${d.title}</h2>
+        <img src="${d.img}" style="width:100%; height:220px; object-fit:cover; border-radius:8px; margin:1rem 0;">
+        <h3 style="font-family:'Playfair Display', serif;">Ingredients</h3><ul>${d.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+        <h3 style="font-family:'Playfair Display', serif; margin-top:1rem;">Instructions</h3><ol>${d.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+      `;
+      document.getElementById('recipe-modal').classList.add('active');
+    }
+    function closeModal() { document.getElementById('recipe-modal').classList.remove('active'); }
+  </script>
+</body>
+</html>
